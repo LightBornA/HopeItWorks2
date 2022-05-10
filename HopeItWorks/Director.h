@@ -192,16 +192,25 @@ private: void HomeWorkTwo()
 //stuff for HomeWorkTwo
 private: void h21()
 {
-	float V, S, R,l,h;
+	float V, S, R,l,r,h;
 	ConsoleOut("R? \n");
 	R = GetFInput();
+	ConsoleOut("r? \n");
+	r = GetFInput();
 	ConsoleOut("h? \n");
 	h = GetFInput();
-	ConsoleOut("l? \n");
-	l = GetFInput();
-	V = h * (pow(R, 2) + R * (R * pow(3, 0.5)) + 3 * pow(R, 2))/3;
-	S = pow(R, 2) + (R + R * pow(3, 0.5)) * l + 3 * pow(R, 2);
-	ConsoleOut("V: " + to_string(V) + "\n S: " + to_string(S));
+	if (h > 0 && r > 0 && R > 0)
+	{
+		l = sqrt(h * h + pow(R - r, 2));
+		V = 3.14 * h * (R * R + R * r + r * r) / 3;
+		S = 3.14 * (R * R + (R + r) * l + r * r);
+		ConsoleOut("V: " + to_string(V) + "\n S: " + to_string(S));
+	}
+	else 
+	{ 
+		ConsoleOut("R, r, h can't be less(or) zero");
+		h21(); 
+	}
 }
 private: void h22()
 {
@@ -210,11 +219,21 @@ private: void h22()
 	float x = GetFInput();
 	ConsoleOut("a? \n");
 	float a = GetFInput();
-	if (abs(x) < 1)
-		w = a * log(abs(x));
+	if (x * x < a && x == 0)
+	{
+		if (abs(x) < 1)
+			w = a * log(abs(x));
+		else
+			w = pow(a - x * x, 0.5);
+		ConsoleOut("W: " + to_string(w));
+	}
 	else
-		w = pow(a - x * x, 0.5);
-	ConsoleOut("W: " + to_string(w));
+	{
+		ConsoleOut("X cant be 0 and also x^2 can't be more than a");
+		h22();
+	}
+
+	
 }
 private: void h23()
 {
@@ -225,35 +244,67 @@ private: void h23()
 	y = GetFInput();
 	ConsoleOut("b? \n");
 	b = GetFInput();
-	try
+	if (b > y && x < b) 
 	{
 		ConsoleOut("Z= " + to_string(log(b - y) * pow(b - x, 0.5)));
 	}
-	catch (exception)
+	else
 	{
-		ConsoleOut("wrong variables");
+		ConsoleOut("y can't be less than y, x can't be more than b");
 		h23();
 	}
+	
 }
 private: void h24()
 {
 	int j = 1;
 	ConsoleOut("N? \n");
 	int N = GetNInput();
-	for (int i = N; i < N + 10; i++)
+	if(N>1)
+	for (int i = N+1; i < N + 11; i++)
 	{
 		ConsoleOut(to_string(j) + ": " + to_string(i) + "\n");
 		j += 1;
 	}
+	else
+		for (int i=1;i<11;i++)
+		{
+			ConsoleOut(to_string(j) + ": " + to_string(i) + "\n");
+			j += 1;
+		}
 }
 private: void h25()
 {	
 	float x = -4;
 	while (x< 4.5)
 	{
-		ConsoleOut("x = " + to_string(x) + " y= " + to_string((x * x - 2 * x + 2) / (x - 1)) + "\n");
-		x += 0.5;
+		if (x - 1 != 0)
+		{
+			ConsoleOut("x = " + to_string(x) + " y= " + to_string((x * x - 2 * x + 2) / (x - 1)) + "\n");
+			x += 0.5;
+		}
+		else
+			ConsoleOut("x=1, y can't exist(division over zero)");
 	}
 }
-};
 
+//stuff for HomeWorkThree
+private: void h31()
+{
+	float S, r,m;
+	int n, p;
+	ConsoleOut("S?\n");
+	S = GetNInput();
+	ConsoleOut("p?\n");
+	p = GetNInput();
+	ConsoleOut("n?\n");
+	n = GetNInput();
+	m = (S * r * pow(1 + r, n)) / (12 * (pow(1 + r, n) - 1));
+	ConsoleOut("m = "+ to_string(m));
+}
+private: void h32()
+{
+
+}
+
+};
